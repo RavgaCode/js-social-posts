@@ -108,6 +108,26 @@ for (let i = 0; i < postArray.length; i++) {
   postContainer.innerHTML += postToPrint;
 }
 
+// Imposto l'event listener a tutti i tasti like
+const allLikeButtons = document.querySelectorAll(".js-likes");
+const allLikeTexts = document.querySelectorAll(".js-likes-counter");
+// Determino un ciclo for che cicla tutti like button
+for (let i = 0; i < allLikeButtons.length; i++) {
+  const thisLikeButton = allLikeButtons[i];
+  thisLikeButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    // Aggiungo la classe liked al click del tasto
+    let likeLabel = thisLikeButton.querySelector(".like-button__label");
+    likeLabel.classList.add("like-button--liked");
+    // Aumento il numero della conta dei like
+    const relatedNumberText = allLikeTexts[i];
+    let relatedNumber = parseInt(relatedNumberText.innerHTML);
+    // Aumento la conta di 1 e stampo in pagina
+    relatedNumber++;
+    relatedNumberText.innerHTML = relatedNumber;
+  });
+}
+
 // Functions
 function getProfileImageHtml(url, id, name, lastName) {
   const imageName = name;
@@ -124,4 +144,12 @@ function getImageHtml(url) {
   <img src="${url}" alt="" />
 </div>`;
   return imageUrl;
+}
+function likeIncrease() {
+  let likeLabel = document.querySelector(".like-button__label");
+  likeLabel.classList.add("like-button--liked");
+  let likeCounter = parseInt(
+    document.querySelector(".js-likes-counter").innerText
+  );
+  likeCounter++;
 }
